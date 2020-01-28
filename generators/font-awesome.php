@@ -35,57 +35,34 @@ include './helpers.php';
 /**
  * Write interface with modifiers
  */
-switch ($iMajorVersion) {
-    case 4:
-        $arrModifiersUrls = [
-            $strRawRepositoryUrl . '/scss/_animated.scss',
-            $strRawRepositoryUrl . '/scss/_bordered-pulled.scss',
-            $strRawRepositoryUrl . '/scss/_fixed-width.scss',
-            $strRawRepositoryUrl . '/scss/_larger.scss',
-            $strRawRepositoryUrl . '/scss/_rotated-flipped.scss',
-            $strRawRepositoryUrl . '/scss/_stacked.scss',
-        ];
-        $arrModifiers     = [];
-        foreach ($arrModifiersUrls as $strModifiersUrl) {
-            $arrModifiers = array_merge(
-                $arrModifiers,
-                extractClassesFromCss(
-                    file_get_contents($strModifiersUrl),
-                    $strCssPrefix,
-                    $strCssClassPrefix,
-                    'modifier'
-                )
-            );
-        }
-        break;
-    case 5:
-        $arrModifiersUrls = [
-            $strRawRepositoryUrl . '/scss/_animated.scss',
-            $strRawRepositoryUrl . '/scss/_bordered-pulled.scss',
-            $strRawRepositoryUrl . '/scss/_fixed-width.scss',
-            $strRawRepositoryUrl . '/scss/_larger.scss',
-            $strRawRepositoryUrl . '/scss/_rotated-flipped.scss',
-            $strRawRepositoryUrl . '/scss/_stacked.scss',
-        ];
-        $arrModifiers     = [
-            'Modifier_Style_Brands'  => 'fab',
-            'Modifier_Style_Duotone' => 'fad',
-            'Modifier_Style_Light'   => 'fal',
-            'Modifier_Style_Regular' => 'far',
-            'Modifier_Style_Solid'   => 'fas',
-        ];
-        foreach ($arrModifiersUrls as $strModifiersUrl) {
-            $arrModifiers = array_merge(
-                $arrModifiers,
-                extractClassesFromCss(
-                    file_get_contents($strModifiersUrl),
-                    $strCssPrefix,
-                    $strCssClassPrefix,
-                    'modifier'
-                )
-            );
-        }
-        break;
+$arrModifiers = [];
+if ($iMajorVersion === 5) {
+    $arrModifiers = array_merge($arrModifiers, [
+        'Modifier_Style_Brands'  => 'fab',
+        'Modifier_Style_Duotone' => 'fad',
+        'Modifier_Style_Light'   => 'fal',
+        'Modifier_Style_Regular' => 'far',
+        'Modifier_Style_Solid'   => 'fas',
+    ]);
+}
+$arrModifiersUrls = [
+    $strRawRepositoryUrl . '/scss/_animated.scss',
+    $strRawRepositoryUrl . '/scss/_bordered-pulled.scss',
+    $strRawRepositoryUrl . '/scss/_fixed-width.scss',
+    $strRawRepositoryUrl . '/scss/_larger.scss',
+    $strRawRepositoryUrl . '/scss/_rotated-flipped.scss',
+    $strRawRepositoryUrl . '/scss/_stacked.scss',
+];
+foreach ($arrModifiersUrls as $strModifiersUrl) {
+    $arrModifiers = array_merge(
+        $arrModifiers,
+        extractClassesFromCss(
+            file_get_contents($strModifiersUrl),
+            $strCssPrefix,
+            $strCssClassPrefix,
+            'modifier'
+        )
+    );
 }
 writeInterface(
     'Xicrow\PhpIcons',
