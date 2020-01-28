@@ -106,6 +106,7 @@ echo FA::IconCreate();
 ## Supported icon packs
 Currently there are generators and classes for the following icon packs:
 - Bootstrap 3 Glyphicons
+- Devicons
 - FontAwesome 4
 - FontAwesome 5 (free)
 
@@ -143,9 +144,6 @@ Currently there are generators and classes for the following icon packs:
     - Microns
         - https://www.s-ings.com/projects/microns-icon-font
         - https://github.com/stephenhutchings/microns
-    - Devicons
-        - https://vorillaz.github.io/devicons
-        - https://github.com/vorillaz/devicons
 
 ## License
 Copyright &copy; 2020 Jan Ebsen
