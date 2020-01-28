@@ -10,33 +10,25 @@ $strVersion        = '3.4.1';
 $strCssPrefix      = '.glyphicon-';
 $strCssClassPrefix = 'glyphicon-';
 
-/**
- * Extract and check major version
- */
-$iMajorVersion = (strpos($strVersion, '.') ? (int)current(explode('.', $strVersion)) : '');
-if (!in_array($iMajorVersion, [3], true)) {
-    throw new Exception('Unsupported major version: ' . $iMajorVersion . ' (' . $strVersion . ')');
-}
+// Load helpers
+include './_helpers.php';
 
-/**
- * Set base URL for raw repository content
- */
+// Get and check major version
+$iMajorVersion = $fnGetAndCheckMajorVersion($strVersion, [3]);
+
+// Set base URL for raw repository content
 $strRawRepositoryUrl = 'https://raw.githubusercontent.com/twbs/bootstrap/v' . $strVersion;
 
-include './helpers.php';
-
-/**
- * Write interface with icons
- */
+// Write interface with icons
 $arrIcons    = [];
 $strIconsUrl = $strRawRepositoryUrl . '/less/glyphicons.less';
-$arrIcons    = extractClassesFromCss(
+$arrIcons    = $fnExtractClassesFromCss(
     file_get_contents($strIconsUrl),
     $strCssPrefix,
     $strCssClassPrefix,
     'icon'
 );
-writeInterface(
+$fnWriteInterface(
     'Xicrow\PhpIcons',
     'Bootstrap' . $iMajorVersion . 'Glyphicons',
     [

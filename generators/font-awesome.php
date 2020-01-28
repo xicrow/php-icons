@@ -10,27 +10,19 @@ $strVersion        = '5.11.2';
 $strCssPrefix      = '.#{$fa-css-prefix}-';
 $strCssClassPrefix = 'fa-';
 
-/**
- * Extract and check major version
- */
-$iMajorVersion = (strpos($strVersion, '.') ? (int)current(explode('.', $strVersion)) : '');
-if (!in_array($iMajorVersion, [4, 5], true)) {
-    throw new Exception('Unsupported major version: ' . $iMajorVersion . ' (' . $strVersion . ')');
-}
+// Load helpers
+include './_helpers.php';
 
-/**
- * Set base URL for raw repository content
- */
+// Get and check major version
+$iMajorVersion = $fnGetAndCheckMajorVersion($strVersion, [4, 5]);
+
+// Set base URL for raw repository content
 $strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' . $strVersion;
 if (version_compare($strVersion, '5.0.0') === -1) {
     $strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/v' . $strVersion;
 }
 
-include './helpers.php';
-
-/**
- * Write interface with modifiers
- */
+// Write interface with modifiers
 $arrModifiers = [];
 if ($iMajorVersion === 5) {
     $arrModifiers = array_merge($arrModifiers, [
@@ -52,7 +44,7 @@ $arrModifiersUrls = [
 foreach ($arrModifiersUrls as $strModifiersUrl) {
     $arrModifiers = array_merge(
         $arrModifiers,
-        extractClassesFromCss(
+        $fnExtractClassesFromCss(
             file_get_contents($strModifiersUrl),
             $strCssPrefix,
             $strCssClassPrefix,
@@ -60,7 +52,7 @@ foreach ($arrModifiersUrls as $strModifiersUrl) {
         )
     );
 }
-writeInterface(
+$fnWriteInterface(
     'Xicrow\PhpIcons',
     'FontAwesome' . $iMajorVersion . 'Modifiers',
     [
@@ -73,18 +65,16 @@ writeInterface(
     $arrModifiers
 );
 
-/**
- * Write interface with icons
- */
+// Write interface with icons
 $arrIcons    = [];
 $strIconsUrl = $strRawRepositoryUrl . '/scss/_icons.scss';
-$arrIcons    = extractClassesFromCss(
+$arrIcons    = $fnExtractClassesFromCss(
     file_get_contents($strIconsUrl),
     $strCssPrefix,
     $strCssClassPrefix,
     'icon'
 );
-writeInterface(
+$fnWriteInterface(
     'Xicrow\PhpIcons',
     'FontAwesome' . $iMajorVersion . 'Icons',
     [
