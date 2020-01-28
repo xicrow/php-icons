@@ -2,20 +2,13 @@
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', true);
 
+include '../src/autoload.php';
+
 use Xicrow\PhpIcons\BaseIcon;
 use Xicrow\PhpIcons\Bootstrap3;
+use Xicrow\PhpIcons\Devicons1;
 use Xicrow\PhpIcons\FontAwesome4;
 use Xicrow\PhpIcons\FontAwesome5;
-
-include '../src/BaseIcon.php';
-include '../src/Bootstrap3Glyphicons.php';
-include '../src/Bootstrap3.php';
-include '../src/FontAwesome4Icons.php';
-include '../src/FontAwesome4Modifiers.php';
-include '../src/FontAwesome4.php';
-include '../src/FontAwesome5Icons.php';
-include '../src/FontAwesome5Modifiers.php';
-include '../src/FontAwesome5.php';
 
 function renderIcon(BaseIcon $oIcon): string
 {
@@ -60,6 +53,17 @@ if (false) {
 	echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">';
     echo renderIcon(Bootstrap3::Icon(Bootstrap3::Icon_Thumbs_Up));
     echo renderIcon(Bootstrap3::Icon(Bootstrap3::Icon_Cog));
+}
+
+// Devicons 1
+if (false) {
+	echo '<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/devicons@1.8.0/css/devicons.min.css">';
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Windows));
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Linux));
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Ubuntu));
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Windows)->attribute('style', 'font-size: 500%;'));
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Linux)->attribute('style', 'font-size: 500%;'));
+    echo renderIcon(Devicons1::Icon(Devicons1::Icon_Ubuntu)->attribute('style', 'font-size: 500%;'));
 }
 
 // FontAwesome 4
