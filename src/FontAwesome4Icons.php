@@ -5,7 +5,7 @@ namespace Xicrow\PhpIcons;
  * List of icon classes for FontAwesome 4
  * 
  * Based on FontAwesome version: 4.7.0
- * Generated                   : 2020-01-27
+ * Generated                   : 2020-01-28
  * 
  * @package Xicrow\PhpIcons
  */

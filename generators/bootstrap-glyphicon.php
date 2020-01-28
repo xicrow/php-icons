@@ -6,15 +6,15 @@
  *
  * @see https://github.com/twbs/bootstrap
  */
-$strVersion     = '3.4.1';
-$strClassPrefix = 'glyphicon-';
+$strVersion        = '3.4.1';
+$strCssPrefix      = '.glyphicon-';
+$strCssClassPrefix = 'glyphicon-';
 
 /**
  * Extract and check major version
  */
 $iMajorVersion = (strpos($strVersion, '.') ? (int)current(explode('.', $strVersion)) : '');
 if (!in_array($iMajorVersion, [3], true)) {
-    /** @noinspection PhpUnhandledExceptionInspection */
     throw new Exception('Unsupported major version: ' . $iMajorVersion . ' (' . $strVersion . ')');
 }
 
@@ -32,11 +32,10 @@ $arrIcons    = [];
 $strIconsUrl = $strRawRepositoryUrl . '/less/glyphicons.less';
 $arrIcons    = extractClassesFromCss(
     file_get_contents($strIconsUrl),
-    '.glyphicon',
-    'icon',
-    $strClassPrefix
+    $strCssPrefix,
+    $strCssClassPrefix,
+    'icon'
 );
-/** @noinspection PhpUnhandledExceptionInspection */
 writeInterface(
     'Xicrow\PhpIcons',
     'Bootstrap' . $iMajorVersion . 'Glyphicons',

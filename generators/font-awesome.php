@@ -11,15 +11,15 @@
  *
  * @see https://github.com/FortAwesome/Font-Awesome
  */
-$strVersion     = '5.11.2';
-$strClassPrefix = 'fa-';
+$strVersion        = '5.11.2';
+$strCssPrefix      = '.#{$fa-css-prefix}-';
+$strCssClassPrefix = 'fa-';
 
 /**
  * Extract and check major version
  */
 $iMajorVersion = (strpos($strVersion, '.') ? (int)current(explode('.', $strVersion)) : '');
 if (!in_array($iMajorVersion, [4, 5], true)) {
-    /** @noinspection PhpUnhandledExceptionInspection */
     throw new Exception('Unsupported major version: ' . $iMajorVersion . ' (' . $strVersion . ')');
 }
 
@@ -56,9 +56,9 @@ switch ($iMajorVersion) {
                 $arrModifiers,
                 extractClassesFromCss(
                     file_get_contents($strModifiersUrl),
-                    '.#{$fa-css-prefix}',
-                    'modifier',
-                    $strClassPrefix
+                    $strCssPrefix,
+                    $strCssClassPrefix,
+                    'modifier'
                 )
             );
         }
@@ -84,15 +84,14 @@ switch ($iMajorVersion) {
                 $arrModifiers,
                 extractClassesFromCss(
                     file_get_contents($strModifiersUrl),
-                    '.#{$fa-css-prefix}',
-                    'modifier',
-                    $strClassPrefix
+                    $strCssPrefix,
+                    $strCssClassPrefix,
+                    'modifier'
                 )
             );
         }
         break;
 }
-/** @noinspection PhpUnhandledExceptionInspection */
 writeInterface(
     'Xicrow\PhpIcons',
     'FontAwesome' . $iMajorVersion . 'Modifiers',
@@ -115,9 +114,9 @@ switch ($iMajorVersion) {
         $strIconsUrl = $strRawRepositoryUrl . '/scss/_icons.scss';
         $arrIcons    = extractClassesFromCss(
             file_get_contents($strIconsUrl),
-            '.#{$fa-css-prefix}',
-            'icon',
-            $strClassPrefix
+            $strCssPrefix,
+            $strCssClassPrefix,
+            'icon'
         );
         break;
     case 5:
@@ -129,11 +128,10 @@ switch ($iMajorVersion) {
             $strConstant = ucwords($strConstant);
             $strConstant = str_replace(' ', '_', $strConstant);
 
-            $arrIcons[$strConstant] = $strClassPrefix . $strIcon;
+            $arrIcons[$strConstant] = $strCssClassPrefix . $strIcon;
         }
         break;
 }
-/** @noinspection PhpUnhandledExceptionInspection */
 writeInterface(
     'Xicrow\PhpIcons',
     'FontAwesome' . $iMajorVersion . 'Icons',

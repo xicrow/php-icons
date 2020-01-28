@@ -6,15 +6,15 @@
  *
  * @see https://github.com/vorillaz/devicons
  */
-$strVersion     = '1.8.0';
-$strClassPrefix = 'devicons-';
+$strVersion        = '1.8.0';
+$strCssPrefix      = '.devicons-';
+$strCssClassPrefix = 'devicons-';
 
 /**
  * Extract and check major version
  */
 $iMajorVersion = (strpos($strVersion, '.') ? (int)current(explode('.', $strVersion)) : '');
 if (!in_array($iMajorVersion, [1], true)) {
-    /** @noinspection PhpUnhandledExceptionInspection */
     throw new Exception('Unsupported major version: ' . $iMajorVersion . ' (' . $strVersion . ')');
 }
 
@@ -36,11 +36,10 @@ $arrIcons    = [];
 $strIconsUrl = $strRawRepositoryUrl . '/css/devicons.css';
 $arrIcons    = extractClassesFromCss(
     file_get_contents($strIconsUrl),
-    '.devicons',
-    'icon',
-    $strClassPrefix
+    $strCssPrefix,
+    $strCssClassPrefix,
+    'icon'
 );
-/** @noinspection PhpUnhandledExceptionInspection */
 writeInterface(
     'Xicrow\PhpIcons',
     'Devicons' . $iMajorVersion . 'Icons',

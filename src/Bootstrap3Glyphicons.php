@@ -5,7 +5,7 @@ namespace Xicrow\PhpIcons;
  * List of icon classes for Bootstrap Glyphicons 3
  * 
  * Based on Bootstrap version: 3.4.1
- * Generated                 : 2020-01-27
+ * Generated                 : 2020-01-28
  * 
  * @package Xicrow\PhpIcons
  */

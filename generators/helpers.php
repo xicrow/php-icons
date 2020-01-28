@@ -51,12 +51,13 @@ function writeInterface(string $strNamespace, string $strInterfaceName, array $a
  *
  * @param string $strCss
  * @param string $strCssPrefix
- * @param string $strConstantPrefix
  * @param string $strCssClassPrefix
+ * @param string $strConstantPrefix
  *
  * @return array
+ * @throws Exception
  */
-function extractClassesFromCss(string $strCss, string $strCssPrefix, string $strConstantPrefix, string $strCssClassPrefix): array
+function extractClassesFromCss(string $strCss, string $strCssPrefix, string $strCssClassPrefix, string $strConstantPrefix): array
 {
     $arrClasses = [];
 
@@ -66,20 +67,25 @@ function extractClassesFromCss(string $strCss, string $strCssPrefix, string $str
             continue;
         }
 
-        if (preg_match('/' . preg_quote($strCssPrefix, '/') . '-([^ ,:{]+)/', $strLine, $arrMatches) === 1) {
-            $strCssClass = $arrMatches[1];
-            if (strpos($strCssClass, '#{$i}') === 0 && preg_match('/@for \$i from (\d+) through (\d+)/', $arrLines[$iLineIndex - 1], $arrSubMatches) === 1) {
-                for ($iLoop = $arrSubMatches[1]; $iLoop <= $arrSubMatches[2]; $iLoop++) {
-                    $strSubCssClass = str_replace('#{$i}', $iLoop, $strCssClass);
+        if (preg_match('/' . preg_quote($strCssPrefix, '/') . '(#{\$[^}]+})?([^ ,:{]+)/', $strLine, $arrMatches) === 1) {
+            $strScssVariable = $arrMatches[1];
+            $strCssClass     = $arrMatches[2];
 
-                    $strConstant = $strConstantPrefix . ' ' . str_replace('-', ' ', $strSubCssClass);
+            // SCSS loop variable, get loop start and end from previous line
+            if ($strScssVariable === '#{$i}' && preg_match('/@for \$i from (\d+) through (\d+)/', $arrLines[$iLineIndex - 1], $arrSubMatches) === 1) {
+                for ($iLoop = $arrSubMatches[1]; $iLoop <= $arrSubMatches[2]; $iLoop++) {
+                    $strSubCssClass = $iLoop . $strCssClass;
+
+                    $strConstant = $strConstantPrefix . ' ' . str_replace(['_', '-'], ' ', $strSubCssClass);
                     $strConstant = ucwords($strConstant);
                     $strConstant = str_replace(' ', '_', $strConstant);
 
                     $arrClasses[$strConstant] = $strCssClassPrefix . $strSubCssClass;
                 }
+            } elseif ($strScssVariable !== '') {
+                throw new Exception('Unhandled SCSS variable: ' . $strScssVariable);
             } else {
-                $strConstant = $strConstantPrefix . ' ' . str_replace('-', ' ', $strCssClass);
+                $strConstant = $strConstantPrefix . ' ' . str_replace(['_', '-'], ' ', $strCssClass);
                 $strConstant = ucwords($strConstant);
                 $strConstant = str_replace(' ', '_', $strConstant);
 
