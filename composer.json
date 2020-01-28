@@ -1,0 +1,35 @@
+{
+	"name"        : "xicrow/php-icons",
+	"description" : "Thumbnail generation for PHP",
+	"type"        : "library",
+	"keywords"    : [
+	],
+	"license"     : "MIT",
+	"authors"     : [
+		{
+			"name"    : "Jan Ebsen",
+			"email"   : "xicrow@gmail.com",
+			"homepage": "http://jan-ebsen.dk",
+			"role"    : "developer"
+		}
+	],
+	"support"     : {
+		"issues": "https://github.com/xicrow/php-icons/issues"
+	},
+	"require"     : {
+		"php"         : "^7.0",
+	},
+	"require-dev" : {
+		"phpunit/phpunit": "^5.2"
+	},
+	"autoload"    : {
+		"psr-4": {
+			"Xicrow\\PhpIcons\\": "src"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Xicrow\\PhpIcons\\Test\\": "tests"
+		}
+	}
+}
