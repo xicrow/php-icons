@@ -4,11 +4,6 @@
  *
  * Set the version to extract icon classes from below.
  *
- * If version 5:
- *  Requires the given version to have the ./metadata/icons.json file
- * If version 4:
- *  Requires the given version to have the ./scss/_icons.scss file
- *
  * @see https://github.com/FortAwesome/Font-Awesome
  */
 $strVersion        = '5.11.2';
@@ -108,30 +103,14 @@ writeInterface(
 /**
  * Write interface with icons
  */
-$arrIcons = [];
-switch ($iMajorVersion) {
-    case 4:
-        $strIconsUrl = $strRawRepositoryUrl . '/scss/_icons.scss';
-        $arrIcons    = extractClassesFromCss(
-            file_get_contents($strIconsUrl),
-            $strCssPrefix,
-            $strCssClassPrefix,
-            'icon'
-        );
-        break;
-    case 5:
-        // @todo It appears the list only contains free icons, figure out how to get all icons, and add option to generate with pro or not (if possible)
-        $strIconsUrl = $strRawRepositoryUrl . '/metadata/icons.json';
-        $arrData     = json_decode(file_get_contents($strIconsUrl), true, 512, JSON_THROW_ON_ERROR);
-        foreach ($arrData as $strIcon => $arrIconInfo) {
-            $strConstant = 'icon ' . str_replace('-', ' ', $strIcon);
-            $strConstant = ucwords($strConstant);
-            $strConstant = str_replace(' ', '_', $strConstant);
-
-            $arrIcons[$strConstant] = $strCssClassPrefix . $strIcon;
-        }
-        break;
-}
+$arrIcons    = [];
+$strIconsUrl = $strRawRepositoryUrl . '/scss/_icons.scss';
+$arrIcons    = extractClassesFromCss(
+    file_get_contents($strIconsUrl),
+    $strCssPrefix,
+    $strCssClassPrefix,
+    'icon'
+);
 writeInterface(
     'Xicrow\PhpIcons',
     'FontAwesome' . $iMajorVersion . 'Icons',
