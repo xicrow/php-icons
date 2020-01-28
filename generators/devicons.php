@@ -21,10 +21,9 @@ if (!in_array($iMajorVersion, [1], true)) {
 /**
  * Set base URL for raw repository content
  */
+$strRawRepositoryUrl = 'https://raw.githubusercontent.com/vorillaz/devicons/' . $strVersion;
 if (version_compare($strVersion, '1.4.0') === -1) {
     $strRawRepositoryUrl = 'https://raw.githubusercontent.com/vorillaz/devicons/v' . $strVersion;
-} else {
-    $strRawRepositoryUrl = 'https://raw.githubusercontent.com/vorillaz/devicons/' . $strVersion;
 }
 
 include './helpers.php';

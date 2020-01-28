@@ -21,13 +21,9 @@ if (!in_array($iMajorVersion, [4, 5], true)) {
 /**
  * Set base URL for raw repository content
  */
-switch ($iMajorVersion) {
-    case 4:
-        $strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/v' . $strVersion;
-        break;
-    case 5:
-        $strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' . $strVersion;
-        break;
+$strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/' . $strVersion;
+if (version_compare($strVersion, '5.0.0') === -1) {
+    $strRawRepositoryUrl = 'https://raw.githubusercontent.com/FortAwesome/Font-Awesome/v' . $strVersion;
 }
 
 include './helpers.php';
