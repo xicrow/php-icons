@@ -23,20 +23,20 @@ $strRawRepositoryUrl = 'https://raw.githubusercontent.com/twbs/bootstrap/v' . $s
 $arrIcons    = [];
 $strIconsUrl = $strRawRepositoryUrl . '/less/glyphicons.less';
 $arrIcons    = $fnExtractClassesFromCss(
-    file_get_contents($strIconsUrl),
-    $strCssPrefix,
-    $strCssClassPrefix,
-    'icon'
+	file_get_contents($strIconsUrl),
+	$strCssPrefix,
+	$strCssClassPrefix,
+	'icon'
 );
 $fnWriteInterface(
-    'Xicrow\PhpIcons',
-    'Bootstrap' . $iMajorVersion . 'Glyphicons',
-    [
-        'List of icon classes for Bootstrap Glyphicons ' . $iMajorVersion,
-        '',
-        'Based on Bootstrap version: ' . $strVersion,
-        'Generated                 : ' . date('Y-m-d'),
-        '',
-    ],
-    $arrIcons
+	'Xicrow\PhpIcons',
+	'Bootstrap' . $iMajorVersion . 'Glyphicons',
+	[
+		'List of icon classes for Bootstrap Glyphicons ' . $iMajorVersion,
+		'',
+		'Based on Bootstrap version: ' . $strVersion,
+		'Generated                 : ' . date('Y-m-d'),
+		'',
+	],
+	$arrIcons
 );
